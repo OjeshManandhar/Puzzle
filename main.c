@@ -42,6 +42,7 @@ int main()
         {
         case 1:
             play();
+            (void)get_key();
             break;
         case 2:
             printf("Set size");
@@ -113,7 +114,7 @@ void play()
             system("cls");
             printf("\nYou Win!!!\n\a");
             printf("Your Moves = %d.\n",moves);
-            exit(1);
+            return;
         }
     }while (1);
 }
