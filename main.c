@@ -7,8 +7,38 @@
 #include <basic_func.h>
 
 void box(int,int,int);
+void play();
 
 int main()
+{
+    play();
+
+    return 0;
+}
+
+void box(int v,int h,int x)
+{
+    int i,j;
+    for (i=v;i<=v+2;i++)
+        for(j=h;j<=h+3;j++)
+        {
+            gotoxy(i,j);
+            if (i==v+1&&(j==h+1||j==h+2))
+            {
+                if (x<10)
+                    printf(" %d",x);
+                else if (x==16)
+                    printf("  ");
+                else
+                    printf("%d",x);
+                j++;
+            }
+            else
+                printf("*");
+        }
+}
+
+void play()
 {
     int i,j,r,c,x,ch,ir=3,ic=3,moves=0,br;
     int p[4][4]={
@@ -66,27 +96,4 @@ int main()
             exit(1);
         }
     }while (1);
-    return 0;
-}
-
-void box(int v,int h,int x)
-{
-    int i,j;
-    for (i=v;i<=v+2;i++)
-        for(j=h;j<=h+3;j++)
-        {
-            gotoxy(i,j);
-            if (i==v+1&&(j==h+1||j==h+2))
-            {
-                if (x<10)
-                    printf(" %d",x);
-                else if (x==16)
-                    printf("  ");
-                else
-                    printf("%d",x);
-                j++;
-            }
-            else
-                printf("*");
-        }
 }
