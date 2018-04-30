@@ -7,4 +7,5 @@
 
 struct position_detail scr_size = {30, 120};
 
-unsigned short int default_row = 4, default_col = 4;
+unsigned short int default_row = 4;
+unsigned short int default_col = 4;

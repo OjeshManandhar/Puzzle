@@ -3,15 +3,46 @@
 #include <windows.h>
 #include <conio.h>
 
-#include <QBASIC_func_C.h>
-#include <basic_func.h>
+#include "config.h"
 
 void box(int,int,int);
 void play();
 
 int main()
 {
-    play();
+    unsigned int i, choice;
+    char **main_menu_items = NULL;
+
+    adjust_console_size(scr_size);
+
+    main_menu_items = get_2D_char_array(4, 10);
+    strcpy(main_menu_items[0], "MAIN MENU");
+    strcpy(main_menu_items[1], "Play");
+    strcpy(main_menu_items[2], "Set size");
+    strcpy(main_menu_items[3], "Exit");
+
+    choice = 1;
+    do
+    {
+        choice = display_menu(main_menu_items, 4, choice);
+
+        system("cls || clear");
+        switch (choice)
+        {
+        case 1:
+            play();
+            break;
+        case 2:
+            printf("Set size");
+            (void)get_key();
+            break;
+        case 3:
+            for (i = 0; i < 4; i++)
+                free(main_menu_items[i]);
+            free(main_menu_items);
+            break;
+        }
+    }while (choice != 3);
 
     return 0;
 }
