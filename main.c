@@ -4,6 +4,17 @@
 #include <conio.h>
 
 #include "config.h"
+#include "header.h"
+
+//-----extern values-----
+struct position_detail scr_size = {30, 120};
+
+const uint8_t default_row = 4;
+const uint8_t default_col = 4;
+
+uint8_t row = 0;
+uint8_t col = 0;
+//-----------------------
 
 void box(int,int,int);
 void play();
@@ -45,28 +56,6 @@ int main()
     }while (choice != 3);
 
     return 0;
-}
-
-void box(int v,int h,int x)
-{
-    int i,j;
-    for (i=v;i<=v+2;i++)
-        for(j=h;j<=h+3;j++)
-        {
-            gotoxy(i,j);
-            if (i==v+1&&(j==h+1||j==h+2))
-            {
-                if (x<10)
-                    printf(" %d",x);
-                else if (x==16)
-                    printf("  ");
-                else
-                    printf("%d",x);
-                j++;
-            }
-            else
-                printf("*");
-        }
 }
 
 void play()
