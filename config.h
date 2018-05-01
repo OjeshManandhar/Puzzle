@@ -7,9 +7,9 @@
 #include <QBASIC_func_C.h>
 #include <basic_func.h>
 
-//Max values of row and col for scr_size 30x120
-#define MAX_ROW 14
-#define MAX_COL 24
+//Max values of row and col for any scr_size
+#define MAX_ROW ((scr_size.row - 1)/2)
+#define MAX_COL ((scr_size.col - 1)/5)
 
 //Min values of row and col for any scr_size
 #define MIN_ROW 2
