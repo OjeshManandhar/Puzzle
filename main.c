@@ -18,7 +18,6 @@ uint8_t col = 0;
 uint8_t **puzzle = NULL;
 //-----------------------
 
-void box(int,int,int);
 void play();
 
 int main()
