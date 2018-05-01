@@ -47,8 +47,11 @@ int main()
                 row = default_row;
                 col= default_col;
             }
-            play();
-            (void)get_key();
+            if (get_conformation() == 1)
+            {
+                play();
+                (void)get_key();
+            }
             break;
         case 2:
             printf("Set size");

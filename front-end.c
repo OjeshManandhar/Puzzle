@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdint.h>
+#include <inttypes.h>
 
 #include "config.h"
 
@@ -102,4 +105,74 @@ void put_element()
             else
                 printf("%u", puzzle[i][j]);
         }
+}
+
+int get_conformation()
+{
+    int choice;
+    unsigned int key;
+    char heading[20] = "";
+    uint8_t temp_top, temp_bot, mid_point;
+
+    strcpy(heading, "Play ");
+    if (row < 10)
+        strcat(heading, "0");
+    strcat(heading, int_to_string(row));
+    strcat(heading, "x");
+    if (col < 10)
+        strcat(heading, "0");
+    strcat(heading, int_to_string(col));
+    strcat(heading, " puzzle");
+
+    choice = 0;
+    while (1)
+    {
+        top.row = ROW_POS(7);
+        top.col = COL_POS(21);
+        bot.row = top.row + 7 - 1;
+        bot.col = top.col + 21 - 1;
+
+        system("cls || clear");
+        print_box(2, 3, 0, 2);
+
+        gotoxy(top.row + 1, top.col + 2);
+        printf(heading);
+
+        top.row += 3;
+        bot.row = top.row + 3 - 1;
+        mid_point = (top.col + 21/2);
+        temp_top = ++top.col;
+        temp_bot = --bot.col;
+
+        gotoxy(top.row + 1, (mid_point - top.col + 1 - 4)/2 + top.col);
+        printf("Play");
+        gotoxy(top.row + 1, (bot.col - mid_point + 1 - 4)/2 + mid_point);
+        printf("Back");
+
+        if (choice == 1)
+        {
+            top.col = temp_top;
+            bot.col = mid_point;
+            print_box(3, 0, 0, 0);
+        }
+        else if (choice == 0)
+        {
+            top.col = mid_point;
+            bot.col = temp_bot;
+            print_box(3, 0, 0, 0);
+        }
+
+        key = get_key();
+        if ((key == RIGHT) || (key == LEFT))
+        {
+            if (choice == 0)
+                choice = 1;
+            else if (choice == 1)
+                choice = 0;
+        }
+        else if (key == ENTER)
+            return choice;
+        else if (key == ESC)
+            return 0;
+    }
 }
