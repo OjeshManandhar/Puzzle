@@ -14,6 +14,8 @@ const uint8_t default_col = 4;
 
 uint8_t row = 0;
 uint8_t col = 0;
+
+uint8_t **puzzle = NULL;
 //-----------------------
 
 void box(int,int,int);
@@ -41,6 +43,11 @@ int main()
         switch (choice)
         {
         case 1:
+            if ((row == 0) && (col == 0))
+            {
+                row = default_row;
+                col= default_col;
+            }
             play();
             (void)get_key();
             break;
