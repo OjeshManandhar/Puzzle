@@ -176,3 +176,31 @@ int get_conformation()
             return 0;
     }
 }
+
+void ask_size()
+{
+    top.row = ROW_POS(6);
+    top.col = COL_POS(25);
+    bot.row = top.row + 6 - 1;
+    bot.col = top.col + 25 - 1;
+
+    print_box(2, 3, 0, 2);
+    gotoxy(top.row + 1, COL_POS(strlen("SET SIZE")));
+    printf("SET SIZE");
+
+    top.row += 3;
+    top.col += 2;
+
+    gotoxy(top.row, top.col);
+    printf("Row [%u to %u]: ", MIN_ROW, MAX_SCR_ROW);
+    gotoxy(top.row + 1, top.col);
+    printf("Col [%u to %u]: ", MIN_COL, MAX_SCR_COL);
+
+    top.col += 16;
+
+    gotoxy(top.row, top.col);
+    //ask for row
+
+    gotoxy(top.row + 1, top.col);
+    //ask for col
+}
