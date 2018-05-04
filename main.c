@@ -9,9 +9,6 @@
 //-----extern values-----
 struct position_detail scr_size = {30, 120};
 
-const uint8_t default_row = 4;
-const uint8_t default_col = 4;
-
 uint8_t row = 0;
 uint8_t col = 0;
 
@@ -44,8 +41,8 @@ int main()
         case 1:
             if ((row == 0) && (col == 0))
             {
-                row = default_row;
-                col= default_col;
+                row = DEFAULT_ROW;
+                col = DEFAULT_COL;
             }
             if (get_conformation() == 1)
             {
