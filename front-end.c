@@ -195,9 +195,16 @@ void ask_size()
     top.col += 2;
 
     gotoxy(top.row, top.col);
-    printf("Row [%u to %u]: ", MIN_ROW, MAX_SCR_ROW);
+    if (MAX_SCR_ROW <= MAX_ROW)
+        printf("Row [%u to %u]: ", MIN_ROW, MAX_SCR_ROW);
+    else
+        printf("Row [%u to %u]: ", MIN_ROW, MAX_ROW);
+
     gotoxy(top.row + 1, top.col);
-    printf("Col [%u to %u]: ", MIN_COL, MAX_SCR_COL);
+    if (MAX_SCR_COL <= MAX_COL)
+        printf("Row [%u to %u]: ", MIN_ROW, MAX_SCR_COL);
+    else
+        printf("Row [%u to %u]: ", MIN_ROW, MAX_COL);
 
     top.col += 15;
 
@@ -210,6 +217,9 @@ void ask_size()
         gotoxy(top.row, top.col);
         get_data(temp);
         row = string_to_int(temp);
+
+        if (row > MAX_ROW)
+            row = MAX_ROW;
     }while ((row < MIN_ROW) || (row > MAX_SCR_ROW));
 
     do
@@ -221,5 +231,8 @@ void ask_size()
         gotoxy(top.row + 1, top.col);
         get_data(temp);
         col = string_to_int(temp);
+
+        if (col > MAX_COL)
+            col = MAX_COL;
     }while ((col < MIN_COL) || (col > MAX_SCR_COL));
 }
