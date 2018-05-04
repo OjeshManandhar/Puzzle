@@ -15,8 +15,6 @@ uint8_t col = 0;
 uint8_t **puzzle = NULL;
 //-----------------------
 
-void play();
-
 int main()
 {
     unsigned int i, choice;
@@ -51,8 +49,7 @@ int main()
             }
             break;
         case 2:
-            printf("Set size");
-            (void)get_key();
+            ask_size();
             break;
         case 3:
             for (i = 0; i < 4; i++)
@@ -123,4 +120,41 @@ void play()
             return;
         }
     }while (1);
+}
+
+void get_data(char *data)
+{
+    uint8_t count = 0;
+    char ch;
+
+    while(1)
+    {
+        fseek(stdin, 0, SEEK_END);
+        ch = getch();
+        if (ch == '\b' && count != 0)
+        {
+            printf("\b \b");
+            data[count] = 0;
+            count--;
+        }
+        else if (ch == '\b' && count == 0)
+            continue;
+        else if (count < 1 && ch =='\r')            //1 = min character in input
+            continue;
+        else if (ch == '\r')
+        {
+            data[count] = 0;
+            break;
+        }
+        else if (count == 6)                        //6 = max character in input
+            continue;
+        else if ((ch >= '0') && (ch <= '9'))
+        {
+            data[count] = ch;
+            count++;
+            putchar(ch);
+        }
+        else
+            continue;
+    }
 }

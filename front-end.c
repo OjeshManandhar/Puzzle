@@ -4,6 +4,7 @@
 #include <inttypes.h>
 
 #include "config.h"
+#include "header.h"
 
 void box(int v,int h,int x)
 {
@@ -179,6 +180,8 @@ int get_conformation()
 
 void ask_size()
 {
+    char temp[7];
+
     top.row = ROW_POS(6);
     top.col = COL_POS(25);
     bot.row = top.row + 6 - 1;
@@ -196,11 +199,27 @@ void ask_size()
     gotoxy(top.row + 1, top.col);
     printf("Col [%u to %u]: ", MIN_COL, MAX_SCR_COL);
 
-    top.col += 16;
+    top.col += 15;
 
-    gotoxy(top.row, top.col);
-    //ask for row
+    do
+    {
+        strcpy(temp, "");
+        gotoxy(top.row, top.col);
+        printf("      ");           //printing 6 spaces to clear the input area
 
-    gotoxy(top.row + 1, top.col);
-    //ask for col
+        gotoxy(top.row, top.col);
+        get_data(temp);
+        row = string_to_int(temp);
+    }while ((row < MIN_ROW) || (row > MAX_SCR_ROW));
+
+    do
+    {
+        strcpy(temp, "");
+        gotoxy(top.row + 1, top.col);
+        printf("      ");           //printing 6 spaces to clear the input area
+
+        gotoxy(top.row + 1, top.col);
+        get_data(temp);
+        col = string_to_int(temp);
+    }while ((col < MIN_COL) || (col > MAX_SCR_COL));
 }
