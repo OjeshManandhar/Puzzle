@@ -69,7 +69,7 @@ void draw_box()
         }
 }
 
-void put_element(uint8_t type)
+void put_element(const uint8_t type)
 {
     /*
     type:
@@ -89,27 +89,13 @@ void put_element(uint8_t type)
         }
 }
 
-int get_conformation()
+int get_conformation(const char *heading, const char *opt)
 {
     int choice;
     unsigned int key;
-    char heading[20] = "";
     uint8_t temp_top, temp_bot, mid_point;
 
-    /*
-    strcpy(heading, "Play ");
-    if (row < 10)
-        strcat(heading, "0");
-    strcat(heading, int_to_string(row));
-    strcat(heading, "x");
-    if (col < 10)
-        strcat(heading, "0");
-    strcat(heading, int_to_string(col));
-    strcat(heading, " puzzle");
-    */
-    sprintf(heading, "Play %ux%u puzzle", row, col);
-
-    choice = 0;
+    choice = 1;
     while (1)
     {
         top.row = ROW_POS(7);
@@ -132,7 +118,7 @@ int get_conformation()
         gotoxy(top.row + 1, (mid_point - top.col + 1 - 4)/2 + top.col);
         printf("Play");
         gotoxy(top.row + 1, (bot.col - mid_point + 1 - 4)/2 + mid_point);
-        printf("Back");
+        printf(opt);
 
         if (choice == 1)
         {

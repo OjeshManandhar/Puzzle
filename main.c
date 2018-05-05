@@ -20,6 +20,7 @@ int main()
 {
     unsigned int i, choice;
     char **main_menu_items = NULL;
+    char heading[20] = "";
     char detail[20] = "";
 
     adjust_console_size(scr_size);
@@ -44,7 +45,20 @@ int main()
                 row = DEFAULT_ROW;
                 col = DEFAULT_COL;
             }
-            if (get_conformation() == 1)
+
+            /*
+            strcpy(heading, "Play ");
+            if (row < 10)
+                strcat(heading, "0");
+            strcat(heading, int_to_string(row));
+            strcat(heading, "x");
+            if (col < 10)
+                strcat(heading, "0");
+            strcat(heading, int_to_string(col));
+            strcat(heading, " puzzle");
+            */
+            sprintf(heading, "Play %ux%u puzzle", row, col);
+            if (get_conformation(heading, "Back") == 1)
             {
                 create_puzzle();
                 play();
@@ -220,6 +234,7 @@ void play()
     uint8_t temp, temp_i, temp_j;
     unsigned int key, moves;
     char message[15] = "";
+    char heading[] = "Sure to Quit";
 
     flag = 0;
     for (i = 0; i < row; i++)
@@ -287,6 +302,12 @@ void play()
                 j--;
                 moves++;
             }
+            break;
+        case ESC:
+            if (get_conformation(heading, "Quit") == 0)
+                return;
+            else
+                draw_box();
             break;
         }
 

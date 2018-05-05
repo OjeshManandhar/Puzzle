@@ -8,8 +8,8 @@ void play();
 
 //front-end
 void draw_box();
-void put_element(uint8_t);
-int get_conformation();
+void put_element(const uint8_t);
+int get_conformation(const char *, const char *);
 void ask_size();
 
 #endif // HEADER_H_INCLUDED
