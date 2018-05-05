@@ -204,7 +204,7 @@ void create_puzzle()
             }
             break;
         case LEFT:
-            if (j < (row - 1))
+            if (j < (col - 1))
             {
                 temp = puzzle[i][j];
                 puzzle[i][j] = puzzle[i][j + 1];
@@ -282,7 +282,7 @@ void play()
             }
             break;
         case LEFT:
-            if (j < (row - 1))
+            if (j < (col - 1))
             {
                 temp = puzzle[i][j];
                 puzzle[i][j] = puzzle[i][j + 1];
