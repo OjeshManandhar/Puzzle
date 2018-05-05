@@ -48,7 +48,6 @@ int main()
             {
                 create_puzzle();
                 play();
-                (void)get_key();
             }
             break;
         case 2:
@@ -220,6 +219,7 @@ void play()
     uint8_t i, j;
     uint8_t temp, temp_i, temp_j;
     unsigned int key, moves;
+    char message[15] = "";
 
     flag = 0;
     for (i = 0; i < row; i++)
@@ -239,7 +239,7 @@ void play()
     draw_box();
     while (1)
     {
-        put_element();
+        put_element(0);
 
         key = get_key();
         switch (key)
@@ -290,18 +290,22 @@ void play()
             break;
         }
 
-        finish = 0;
+        finish = 1;
         for (temp_i = 0; temp_i < row; temp_i++)
             for (temp_j = 0; temp_j < col; temp_j++)
                 if (puzzle[temp_i][temp_j] != (temp_i*col + temp_j + 1))
                 {
-                    finish = 1;
+                    finish = 0;
                     break;
                 }
 
-        if (finish == 0)
+        if (finish == 1)
         {
-            print_detail("YOU WIN", NULL);
+            put_element(1);
+            (void)get_key();
+
+            sprintf(message, "Moves = %u", moves);
+            print_detail("Puzzle Solved", message);
             break;
         }
     }

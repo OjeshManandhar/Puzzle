@@ -69,15 +69,20 @@ void draw_box()
         }
 }
 
-void put_element()
+void put_element(uint8_t type)
 {
+    /*
+    type:
+    1 => display "  "
+    2 => display number
+    */
     uint8_t i, j;
 
     for (i = 0; i < row; i++)
         for (j = 0; j < col; j++)
         {
             gotoxy(top.row + TO_ROW(i), top.col + TO_COL(j));
-            if (puzzle[i][j] == row*col)
+            if ((puzzle[i][j] == row*col) && (type == 0))
                 printf("  ");
             else
                 printf("%2u", puzzle[i][j]);

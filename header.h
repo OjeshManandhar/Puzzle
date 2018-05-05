@@ -8,7 +8,7 @@ void play();
 
 //front-end
 void draw_box();
-void put_element();
+void put_element(uint8_t);
 int get_conformation();
 void ask_size();
 
