@@ -150,5 +150,83 @@ void create_puzzle()
 
 void play()
 {
+    uint8_t finish;
+    uint8_t i, j;
+    uint8_t temp, temp_i, temp_j;
+    unsigned int key;
+    unsigned int moves;
 
+    i = row - 1;
+    j = col - 1;
+    moves = 0;
+
+    draw_box();
+    while (1)
+    {
+        put_element();
+
+        key = get_key();
+        switch (key)
+        {
+        case UP:
+            if (i < (row - 1))
+            {
+                temp = puzzle[i][j];
+                puzzle[i][j] = puzzle[i + 1][j];
+                puzzle[i + 1][j] = temp;
+
+                i++;
+                moves++;
+            }
+            break;
+        case DOWN:
+            if (i > 0)
+            {
+                temp = puzzle[i][j];
+                puzzle[i][j] = puzzle[i - 1][j];
+                puzzle[i - 1][j] = temp;
+
+                i--;
+                moves++;
+            }
+            break;
+        case LEFT:
+            if (j < (row - 1))
+            {
+                temp = puzzle[i][j];
+                puzzle[i][j] = puzzle[i][j + 1];
+                puzzle[i][j + 1] = temp;
+
+                j++;
+                moves++;
+            }
+            break;
+        case RIGHT:
+            if (j > 0)
+            {
+                temp = puzzle[i][j];
+                puzzle[i][j] = puzzle[i][j - 1];
+                puzzle[i][j - 1] = temp;
+
+                j--;
+                moves++;
+            }
+            break;
+        }
+
+        finish = 0;
+        for (temp_i = 0; temp_i < row; temp_i++)
+            for (temp_j = 0; temp_j < col; temp_j++)
+                if (puzzle[temp_i][temp_j] != (temp_i*col + temp_j + 1))
+                {
+                    finish = 1;
+                    break;
+                }
+
+        if (finish == 0)
+        {
+            print_detail("YOU WIN", NULL);
+            break;
+        }
+    }
 }
