@@ -169,7 +169,7 @@ void create_puzzle()
     srand(time(0));
     i = row - 1;
     j = col - 1;
-    for (moves = 0; moves < 1000; moves++)
+    for (moves = 0; moves < 1000*(row*col); moves++)
     {
         key = rand()%4;
         if (key == 0)
