@@ -115,6 +115,7 @@ int get_conformation()
     char heading[20] = "";
     uint8_t temp_top, temp_bot, mid_point;
 
+    /*
     strcpy(heading, "Play ");
     if (row < 10)
         strcat(heading, "0");
@@ -124,6 +125,9 @@ int get_conformation()
         strcat(heading, "0");
     strcat(heading, int_to_string(col));
     strcat(heading, " puzzle");
+    */
+
+    sprintf(heading, "Play %ux%u puzzle", row, col);
 
     choice = 0;
     while (1)
@@ -136,7 +140,7 @@ int get_conformation()
         system("cls || clear");
         print_box(2, 3, 0, 2);
 
-        gotoxy(top.row + 1, top.col + 2);
+        gotoxy(top.row + 1, COL_POS(strlen(heading)));
         printf(heading);
 
         top.row += 3;

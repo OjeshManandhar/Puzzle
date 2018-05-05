@@ -19,6 +19,7 @@ int main()
 {
     unsigned int i, choice;
     char **main_menu_items = NULL;
+    char detail[20] = "";
 
     adjust_console_size(scr_size);
 
@@ -50,14 +51,16 @@ int main()
             break;
         case 2:
             row = col = 0;
+
             ask_size();
+
+            sprintf(detail, "Size set to %ux%u", row, col);
+            print_detail(detail, NULL);
             break;
         case 3:
             for (i = 0; i < 4; i++)
                 free(main_menu_items[i]);
             free(main_menu_items);
-
-            (void)get_key();
             break;
         }
     }while (choice != 3);
