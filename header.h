@@ -7,7 +7,6 @@ void create_puzzle();
 void play();
 
 //front-end
-void box(int, int, int);
 void draw_box();
 void put_element();
 int get_conformation();
