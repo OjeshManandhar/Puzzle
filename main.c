@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <conio.h>
+//#include <time.h>
 
 #include "config.h"
 #include "header.h"
@@ -45,6 +46,7 @@ int main()
             }
             if (get_conformation() == 1)
             {
+                create_puzzle();
                 play();
                 (void)get_key();
             }
@@ -66,6 +68,84 @@ int main()
     }while (choice != 3);
 
     return 0;
+}
+
+void get_data(char *data)
+{
+    uint8_t count = 0;
+    char ch;
+
+    while(1)
+    {
+        fseek(stdin, 0, SEEK_END);
+        ch = getch();
+        if (ch == '\b' && count != 0)
+        {
+            printf("\b \b");
+            data[count] = 0;
+            count--;
+        }
+        else if (ch == '\b' && count == 0)
+            continue;
+        else if (count < 1 && ch =='\r')            //1 = min character in input
+            continue;
+        else if (ch == '\r')
+        {
+            data[count] = 0;
+            break;
+        }
+        else if (count == 6)                        //6 = max character in input
+            continue;
+        else if ((ch >= '0') && (ch <= '9'))
+        {
+            data[count] = ch;
+            count++;
+            putchar(ch);
+        }
+        else
+            continue;
+    }
+}
+
+void create_puzzle()
+{
+    uint8_t i, j;
+    uint8_t temp, temp_i, temp_j;
+
+    //Creating the puzzle with initial value 0
+    puzzle = (uint8_t **)calloc(row, sizeof(uint8_t *));
+    for (i = 0; i < row; i++)
+        puzzle[i] = (uint8_t *)calloc(col, sizeof(uint8_t));
+
+    //Giving value 1, 2, 3, ...
+    for (i = 0; i < row; i++)
+        for (j = 0; j < col; j++)
+            puzzle[i][j] = i*col + j + 1;
+
+    //Shuffling the puzzle
+    srand(time(0));
+    for (i = 0; i < row; i++)
+        for (j = 0; j < col; j++)
+        {
+            temp_i = rand()%row;
+            temp_j = rand()%col;
+
+            temp = puzzle[i][j];
+            puzzle[i][j] = puzzle[temp_i][temp_j];
+            puzzle[temp_i][temp_j] = temp;
+        }
+
+    //Making the last element row*col to display it blank at start
+    for (i = 0; i < row; i++)
+        for (j = 0; j < col; j++)
+            if (puzzle[i][j] == row*col)
+            {
+                temp = puzzle[i][j];
+                puzzle[i][j] = puzzle[row - 1][col - 1];
+                puzzle[row - 1][col - 1] = temp;
+
+                break;
+            }
 }
 
 void play()
@@ -126,41 +206,4 @@ void play()
             return;
         }
     }while (1);
-}
-
-void get_data(char *data)
-{
-    uint8_t count = 0;
-    char ch;
-
-    while(1)
-    {
-        fseek(stdin, 0, SEEK_END);
-        ch = getch();
-        if (ch == '\b' && count != 0)
-        {
-            printf("\b \b");
-            data[count] = 0;
-            count--;
-        }
-        else if (ch == '\b' && count == 0)
-            continue;
-        else if (count < 1 && ch =='\r')            //1 = min character in input
-            continue;
-        else if (ch == '\r')
-        {
-            data[count] = 0;
-            break;
-        }
-        else if (count == 6)                        //6 = max character in input
-            continue;
-        else if ((ch >= '0') && (ch <= '9'))
-        {
-            data[count] = ch;
-            count++;
-            putchar(ch);
-        }
-        else
-            continue;
-    }
 }

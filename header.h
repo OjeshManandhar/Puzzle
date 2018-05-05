@@ -2,8 +2,9 @@
 #define HEADER_H_INCLUDED
 
 //main
-void play();
 void get_data(char *);
+void create_puzzle();
+void play();
 
 //front-end
 void box(int, int, int);

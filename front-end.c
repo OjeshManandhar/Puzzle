@@ -38,7 +38,7 @@ void draw_box()
     bot.row = top.row + LENGTH - 1;
     bot.col = top.col + BREADTH - 1;
 
-    system("cls");
+    system("cls || clear");
 
     for (i = 0; i < LENGTH; i++)
         for (j = 0; j < BREADTH; j++)
@@ -99,12 +99,10 @@ void put_element()
         for (j = 0; j < col; j++)
         {
             gotoxy(top.row + TO_ROW(i), top.col + TO_COL(j));
-            if (puzzle[i][j] < 10)
-                printf("0%u", puzzle[i][j]);
-            else if (puzzle[i][j] == row*col)
-                printf(" ");
+            if (puzzle[i][j] == row*col)
+                printf("  ");
             else
-                printf("%u", puzzle[i][j]);
+                printf("%2u", puzzle[i][j]);
         }
 }
 
@@ -126,7 +124,6 @@ int get_conformation()
     strcat(heading, int_to_string(col));
     strcat(heading, " puzzle");
     */
-
     sprintf(heading, "Play %ux%u puzzle", row, col);
 
     choice = 0;
@@ -191,6 +188,7 @@ void ask_size()
     bot.row = top.row + 6 - 1;
     bot.col = top.col + 25 - 1;
 
+    system("cls || clear");
     print_box(2, 3, 0, 2);
     gotoxy(top.row + 1, COL_POS(strlen("SET SIZE")));
     printf("SET SIZE");
