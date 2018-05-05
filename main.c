@@ -110,7 +110,9 @@ void get_data(char *data)
 void create_puzzle()
 {
     uint8_t i, j;
-    uint8_t temp, temp_i, temp_j;
+    uint8_t temp;
+    //unsigned int temp_i, temp_j;
+    unsigned int key, moves;
 
     //Creating the puzzle with initial value 0
     puzzle = (uint8_t **)calloc(row, sizeof(uint8_t *));
@@ -122,7 +124,9 @@ void create_puzzle()
         for (j = 0; j < col; j++)
             puzzle[i][j] = i*col + j + 1;
 
+    /*
     //Shuffling the puzzle
+    //This method could sometime lead to a unsolvable puzzle
     srand(time(0));
     for (i = 0; i < row; i++)
         for (j = 0; j < col; j++)
@@ -146,18 +150,90 @@ void create_puzzle()
 
                 break;
             }
+    */
+
+    //New method of shuffling puzzle
+    srand(time(0));
+    i = row - 1;
+    j = col - 1;
+    for (moves = 0; moves < 1000; moves++)
+    {
+        key = rand()%4;
+        if (key == 0)
+            key = UP;
+        else if (key == 1)
+            key = DOWN;
+        else if (key == 2)
+            key = RIGHT;
+        else if (key == 3)
+            key = LEFT;
+
+        switch (key)
+        {
+        case UP:
+            if (i < (row - 1))
+            {
+                temp = puzzle[i][j];
+                puzzle[i][j] = puzzle[i + 1][j];
+                puzzle[i + 1][j] = temp;
+
+                i++;
+            }
+            break;
+        case DOWN:
+            if (i > 0)
+            {
+                temp = puzzle[i][j];
+                puzzle[i][j] = puzzle[i - 1][j];
+                puzzle[i - 1][j] = temp;
+
+                i--;
+            }
+            break;
+        case LEFT:
+            if (j < (row - 1))
+            {
+                temp = puzzle[i][j];
+                puzzle[i][j] = puzzle[i][j + 1];
+                puzzle[i][j + 1] = temp;
+
+                j++;
+            }
+            break;
+        case RIGHT:
+            if (j > 0)
+            {
+                temp = puzzle[i][j];
+                puzzle[i][j] = puzzle[i][j - 1];
+                puzzle[i][j - 1] = temp;
+
+                j--;
+            }
+            break;
+        }
+    }
 }
 
 void play()
 {
-    uint8_t finish;
+    uint8_t flag, finish;
     uint8_t i, j;
     uint8_t temp, temp_i, temp_j;
-    unsigned int key;
-    unsigned int moves;
+    unsigned int key, moves;
 
-    i = row - 1;
-    j = col - 1;
+    flag = 0;
+    for (i = 0; i < row; i++)
+    {
+        for (j = 0; j < col; j++)
+            if (puzzle[i][j] == row*col)
+            {
+                flag = 1;
+                break;
+            }
+        if (flag == 1)
+            break;
+    }
+
     moves = 0;
 
     draw_box();
