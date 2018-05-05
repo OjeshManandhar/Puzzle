@@ -12,8 +12,8 @@
 #define MIN_COL 2
 
 //Max values of row and col for any scr_size
-#define MAX_ROW 99
-#define MAX_COL 99
+#define MAX_ROW 10
+#define MAX_COL 10
 
 //Max values of row and col for a certain scr_size
 #define MAX_SCR_ROW ((scr_size.row - 1)/2)

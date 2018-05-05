@@ -7,7 +7,7 @@
 #include "header.h"
 
 //-----extern values-----
-struct position_detail scr_size = {30, 120};
+struct position_detail scr_size = {30, 120};        //MAX 255 as uint8_t is used
 
 uint8_t row = 0;
 uint8_t col = 0;
@@ -49,12 +49,15 @@ int main()
             }
             break;
         case 2:
+            row = col = 0;
             ask_size();
             break;
         case 3:
             for (i = 0; i < 4; i++)
                 free(main_menu_items[i]);
             free(main_menu_items);
+
+            (void)get_key();
             break;
         }
     }while (choice != 3);

@@ -217,10 +217,7 @@ void ask_size()
         gotoxy(top.row, top.col);
         get_data(temp);
         row = string_to_int(temp);
-
-        if (row > MAX_ROW)
-            row = MAX_ROW;
-    }while ((row < MIN_ROW) || (row > MAX_SCR_ROW));
+    }while ((row < MIN_ROW) || (row > MAX_SCR_ROW) || (row > MAX_ROW));
 
     do
     {
@@ -231,8 +228,5 @@ void ask_size()
         gotoxy(top.row + 1, top.col);
         get_data(temp);
         col = string_to_int(temp);
-
-        if (col > MAX_COL)
-            col = MAX_COL;
-    }while ((col < MIN_COL) || (col > MAX_SCR_COL));
+    }while ((col < MIN_COL) || (col > MAX_SCR_COL) || (col > MAX_COL));
 }
