@@ -78,6 +78,8 @@ int main()
             for (i = 0; i < 4; i++)
                 free(main_menu_items[i]);
             free(main_menu_items);
+
+            print_detail("Game Closed", NULL);
             break;
         }
     }while (choice != 3);
