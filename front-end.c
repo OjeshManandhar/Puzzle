@@ -213,23 +213,52 @@ void display_logo()
     if (fp != NULL)
     {
         get_console_size(&size);
-        if ((size.row >= 9) && (size.col >= 65))
+        if ((size.row >= 12) && (size.col >= 65))
         {
             system("color 06");
             //console background = 0 = Black
             //console text = 6 = Yellow
+
             while(fgets(data, sizeof(data), fp) != NULL)
             {
-                gotoxy(ROW_POS(9) + line++, COL_POS(65));
+                gotoxy(ROW_POS(12) + line++, COL_POS(65));
                 printf("%s", data);
                 delay(150);
             }
 
+            gotoxy(ROW_POS(12)+ 11, COL_POS(strlen("Loading Game")));
+            printf("Loading Game");
+            gotoxy(ROW_POS(12)+ 12, COL_POS(20));
+            loading_animation(20);
+
             gotoxy(scr_size.row - 1, scr_size.col - 1);
-            delay(1000);
+            delay(500);
+            system("cls || clear");
             system("color 07");                //reset console colour to normal
             //console background = 0 = Black
             //console text = 7 = White
         }
+    }
+}
+
+void loading_animation(const uint8_t max)
+{
+    uint8_t i;
+
+    for (i = 0; i < max; i++)
+        printf("%c", 177);
+    for (i = 0; i < max; i++)
+        printf("\b");
+
+    for (i = 0; i < max; i++)
+    {
+        printf("%c", 219);
+
+        if (i <= max*33/100)
+            delay(150);
+        else if ((i > max*33/100) && (i <= max*66/100))
+            delay(100);
+        else
+            delay(50);
     }
 }
