@@ -201,3 +201,35 @@ void ask_size()
         col = string_to_int(temp);
     }while ((col < MIN_COL) || (col > MAX_SCR_COL) || (col > MAX_COL));
 }
+
+void display_logo()
+{
+    FILE *fp = NULL;
+    uint8_t line = 0;
+    char data[66] ="";
+    struct position_detail size = {0};
+
+    fp = fopen("logo.txt", "r");
+    if (fp != NULL)
+    {
+        get_console_size(&size);
+        if ((size.row >= 9) && (size.col >= 65))
+        {
+            system("color 06");
+            //console background = 0 = Black
+            //console text = 6 = Yellow
+            while(fgets(data, sizeof(data), fp) != NULL)
+            {
+                gotoxy(ROW_POS(9) + line++, COL_POS(65));
+                printf("%s", data);
+                delay(150);
+            }
+
+            gotoxy(scr_size.row - 1, scr_size.col - 1);
+            delay(1000);
+            system("color 07");                //reset console colour to normal
+            //console background = 0 = Black
+            //console text = 7 = White
+        }
+    }
+}

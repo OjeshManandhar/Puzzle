@@ -25,6 +25,8 @@ int main()
 
     adjust_console_size(scr_size);
 
+    display_logo();
+
     main_menu_items = get_2D_char_array(4, 10);
     strcpy(main_menu_items[0], "MAIN MENU");
     strcpy(main_menu_items[1], "Play");
