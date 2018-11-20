@@ -173,9 +173,9 @@ void ask_size()
 
     gotoxy(top.row + 1, top.col);
     if (MAX_SCR_COL <= MAX_COL)
-        printf("Row [%u to %u]: ", MIN_ROW, MAX_SCR_COL);
+        printf("Col [%u to %u]: ", MIN_COL, MAX_SCR_COL);
     else
-        printf("Row [%u to %u]: ", MIN_ROW, MAX_COL);
+        printf("Col [%u to %u]: ", MIN_COL, MAX_COL);
 
     top.col += 15;
 
