@@ -173,7 +173,7 @@ void create_puzzle()
     srand(time(0));
     i = row - 1;
     j = col - 1;
-    for (moves = 0; moves < 1000*(row*col); moves++)
+    for (moves = 0; moves < 1000*(row*col);)
     {
         key = rand()%4;
         if (key == 0)
@@ -195,6 +195,7 @@ void create_puzzle()
                 puzzle[i + 1][j] = temp;
 
                 i++;
+                moves++;
             }
             break;
         case DOWN:
@@ -205,6 +206,7 @@ void create_puzzle()
                 puzzle[i - 1][j] = temp;
 
                 i--;
+                moves++;
             }
             break;
         case LEFT:
@@ -215,6 +217,7 @@ void create_puzzle()
                 puzzle[i][j + 1] = temp;
 
                 j++;
+                moves++;
             }
             break;
         case RIGHT:
@@ -225,6 +228,7 @@ void create_puzzle()
                 puzzle[i][j - 1] = temp;
 
                 j--;
+                moves++;
             }
             break;
         }
